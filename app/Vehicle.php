@@ -20,7 +20,8 @@ class Vehicle extends Model
     ];
 
     protected $appends = [
-        'last_seen'
+        'last_seen',
+        'last_mileage',
     ];
 
     public function getLastSeenAttribute()
@@ -35,6 +36,18 @@ class Vehicle extends Model
         return 'Never';
     }
 
+    public function getLastMileageAttribute()
+    {
+        $last_mileage = $this->mileage()->orderBy('id', 'desc')->first();
+
+        if(isset($last_mileage->id) && $last_mileage->mileage !== null)
+        {
+            return $last_mileage->mileage;
+        }
+
+        return 'Unknown';
+    }
+
     public function customer()
     {
         return $this->belongsTo(Customer::class);
@@ -42,11 +55,11 @@ class Vehicle extends Model
 
     public function mileage()
     {
-        return $this->hasMany(VehicleMileage::class, 'vehicle_id');
+        return $this->hasMany(VehicleMileage::class, 'vehicle_id')->with('author');
     }
 
     public function renderedServices()
     {
-        return $this->hasMany(RenderedService::class, 'vehicle_id', 'id');
+        return $this->hasMany(RenderedService::class, 'vehicle_id', 'id')->with(['customer', 'service', 'employee']);
     }
 }

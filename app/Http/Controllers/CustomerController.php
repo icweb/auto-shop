@@ -20,7 +20,7 @@ class CustomerController extends Controller
     }
 
     /**
-     * Search for resources.
+     * Show the form for searching for a resource.
      *
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
@@ -31,10 +31,11 @@ class CustomerController extends Controller
     }
 
     /**
-     * Search for resources.
+     * Search for a resource.
      *
-     * @param  \Illuminate\Http\Request  $request
-     * @return \Illuminate\Http\Response
+     * @param Request $request
+     * @return \Illuminate\Contracts\View\Factory|\Illuminate\Http\RedirectResponse|\Illuminate\View\View
+     * @throws \Illuminate\Validation\ValidationException
      */
     public function postSearch(Request $request)
     {
@@ -55,11 +56,10 @@ class CustomerController extends Controller
         ];
 
         $customers = Customer::select('*');
-        if(request()->exists('first_name') && !empty(request()->input('first_name'))) $customers = $customers->where('first_name', 'LIKE', '%' . request()->input('first_name') . '%');
-        if(request()->exists('last_name') && !empty(request()->input('last_name'))) $customers = $customers->where('last_name', 'LIKE', '%' . request()->input('last_name') . '%');
-        if(request()->exists('home_phone') && !empty(request()->input('home_phone'))) $customers = $customers->where('home_phone', 'LIKE', '%' . request()->input('home_phone') . '%');
-        if(request()->exists('mobile_phone') && !empty(request()->input('mobile_phone'))) $customers = $customers->where('mobile_phone', 'LIKE', '%' . request()->input('mobile_phone') . '%');
-        if(request()->exists('email') && !empty(request()->input('email'))) $customers = $customers->where('email', 'LIKE', '%' . request()->input('email') . '%');
+        foreach($criteria as $key => $val)
+        {
+            if(request()->exists($key) && !empty(request()->input($key))) $customers = $customers->where($key, 'LIKE', '%' . request()->input($key) . '%');
+        }
         $customers = $customers->get();
 
         if($customers->count() === 1)
@@ -122,6 +122,8 @@ class CustomerController extends Controller
      */
     public function show(Customer $customer)
     {
+        $customer->load(['vehicles', 'renderedServices']);
+
         return view('customers.show', compact('customer'));
     }
 

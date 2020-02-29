@@ -9,7 +9,7 @@
                     <h3 class="display-4 mb-0" style="font-size:30px !important;">
                         <i class="far fa-user"></i> {{ $customer->first_name }} {{ $customer->last_name }}
                         <div class="float-right">
-                            <a href="" class="btn btn-warning btn-sm"><i class="far fa-pencil"></i></a>
+                            <a href="{{ route('customers.edit', $customer) }}" class="btn btn-warning btn-sm"><i class="far fa-pencil"></i></a>
                             <a href="" class="btn btn-danger btn-sm"><i class="far fa-trash"></i></a>
                         </div>
                     </h3>

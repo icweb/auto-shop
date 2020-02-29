@@ -25,6 +25,8 @@ Route::group(['middleware' => ['auth']], function(){
     Route::post('customers/search', 'CustomerController@postSearch')->name('customers.search');
     Route::resource('customers', 'CustomerController');
 
+    Route::get('vehicles/search', 'VehicleController@getSearch')->name('vehicles.search-form');
+    Route::post('vehicles/search', 'VehicleController@postSearch')->name('vehicles.search');
     Route::resource('vehicles', 'VehicleController');
 
 });

@@ -59,8 +59,7 @@
                                 </a>
 
                                 <div class="dropdown-menu dropdown-menu-right" aria-labelledby="customersDropdown">
-                                    <a class="nav-link text-dark" href="{{ route('vehicles.index') }}"><i class="far fa-search fa-fw"></i> Search</a>
-                                    <a class="nav-link text-dark" href="{{ route('vehicles.index') }}"><i class="far fa-plus fa-fw"></i> Create</a>
+                                    <a class="nav-link text-dark" href="{{ route('vehicles.search') }}"><i class="far fa-search fa-fw"></i> Search</a>
                                     <a class="nav-link text-dark" href="{{ route('vehicles.index') }}"><i class="far fa-cars fa-fw"></i> All</a>
                                 </div>
                             </li>
@@ -74,6 +73,7 @@
                                     <a class="nav-link text-dark" href="#"><i class="far fa-cog fa-fw"></i> Employees</a>
                                     <a class="nav-link text-dark" href="#"><i class="far fa-cog fa-fw"></i> Services</a>
                                     <a class="nav-link text-dark" href="#"><i class="far fa-cog fa-fw"></i> Logs</a>
+                                    <a class="nav-link text-dark" href="#"><i class="far fa-cog fa-fw"></i> Settings</a>
                                 </div>
                             </li>
                         @endauth

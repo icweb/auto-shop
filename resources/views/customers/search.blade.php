@@ -7,7 +7,7 @@
 
                 <div class="jumbotron">
                     <h3 class="display-4 mb-0" style="font-size:30px !important;">
-                        <i class="far fa-search"></i> Search Customer
+                        <i class="far fa-search"></i> Search Customers
                     </h3>
                     <nav aria-label="breadcrumb">
                         <ol class="breadcrumb mb-0">

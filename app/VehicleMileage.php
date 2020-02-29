@@ -2,9 +2,7 @@
 
 namespace App;
 
-use Illuminate\Database\Eloquent\Model;
-
-class VehicleMileage extends Model
+class VehicleMileage extends BaseModel
 {
     protected $table = 'vehicle_mileage';
 

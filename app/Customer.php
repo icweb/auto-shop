@@ -38,7 +38,7 @@ class Customer extends BaseModel
 
     public function vehicles()
     {
-        return $this->hasMany(Vehicle::class);
+        return $this->hasMany(Vehicle::class)->with(['mileage', 'renderedServices']);
     }
 
     public function renderedServices()

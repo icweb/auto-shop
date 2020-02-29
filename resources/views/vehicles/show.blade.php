@@ -26,10 +26,14 @@
                     <div>
                         <table class="table mb-0">
                             <tbody>
-                            <tr>
-                                <td style="width: 150px;"><b><i class="far fa-user fa-fw"></i> Owner</b></td>
-                                <td><a href="{{ route('customers.show', $vehicle->customer) }}">{{ $vehicle->customer->first_name . ' ' . $vehicle->customer->last_name }}</a></td>
-                            </tr>
+                                <tr>
+                                    <td style="width: 150px;"><b><i class="far fa-user fa-fw"></i> Owner</b></td>
+                                    <td><a href="{{ route('customers.show', $vehicle->customer) }}">{{ $vehicle->customer->first_name . ' ' . $vehicle->customer->last_name }}</a></td>
+                                </tr>
+                                <tr>
+                                    <td style="width: 150px;"><b><i class="far fa-tachometer-slowest fa-fw"></i> Mileage</b></td>
+                                    <td>{{ $vehicle->last_mileage }}</td>
+                                </tr>
                                 <tr>
                                     <td style="width: 150px;"><b><i class="far fa-calendar fa-fw"></i> Year</b></td>
                                     <td>{{ $vehicle->year }}</td>
@@ -90,6 +94,34 @@
                         </table>
                     </div>
                 </div>
+
+                @if(\App\Setting::check('vehicle_show_mileage_history'))
+                    <div class="card mb-5">
+                        <div class="card-header bg-dark text-white">
+                            <i class="far fa-tachometer-slowest"></i> Mileage History
+                        </div>
+                        <div class="card-body">
+                            <table class="table mb-0 dt-table">
+                                <thead>
+                                <tr>
+                                    <th>When</th>
+                                    <th>Who</th>
+                                    <th>Mileage</th>
+                                </tr>
+                                </thead>
+                                <tbody>
+                                @foreach($vehicle->mileage as $mileage)
+                                    <tr>
+                                        <td>{{ $mileage->created_at->format('m/d/Y') }}</td>
+                                        <td>{{ $mileage->author->name }}</td>
+                                        <td>{{ $mileage->mileage }}</td>
+                                    </tr>
+                                @endforeach
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                @endif
             </div>
         </div>
     </div>
