@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Appointment;
+use App\AppointmentService;
 use Illuminate\Http\Request;
 
 class AppointmentController extends Controller
@@ -26,7 +27,9 @@ class AppointmentController extends Controller
      */
     public function create()
     {
-        return view('appointments.create');
+        $services = AppointmentService::all();
+
+        return view('appointments.create', compact('services'));
     }
 
     /**
@@ -45,11 +48,23 @@ class AppointmentController extends Controller
         ]);
 
         $appointment = Appointment::create([
+            'author_id' => auth()->id(),
             'customer_id' => request()->input('customer'),
             'comments' => request()->input('comments'),
             'starts_at' => request()->input('starts_at'),
             'ends_at' => request()->input('ends_at'),
         ]);
+
+        foreach(request()->input('services') as $service)
+        {
+            $appointment->service()->create([
+                'author_id' => auth()->id(),
+                'service_id' => $service['service'],
+                'vehicle_id' => $service['vehicle'],
+                'cost' => $service['cost'],
+                'comments' => $service['comments'],
+            ]);
+        }
 
         return view('appointments.show', compact('appointment'));
     }
@@ -112,6 +127,6 @@ class AppointmentController extends Controller
     {
         $appointment->delete();
 
-        return view('appointments.index');
+        return redirect()->route('appointments.index');
     }
 }

@@ -23,6 +23,7 @@ class CreateVehiclesTable extends Migration
             $table->string('color')->nullable();
             $table->string('body_type')->nullable();
             $table->string('license_plate')->nullable();
+            $table->longText('vin')->nullable();
             $table->longText('comments')->nullable();
             $table->timestamps();
             $table->softDeletes();

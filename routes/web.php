@@ -14,3 +14,17 @@
 Route::get('/', function () {
     return view('welcome');
 });
+
+Auth::routes();
+
+Route::get('/home', 'HomeController@index')->name('home');
+
+Route::group(['middleware' => ['auth']], function(){
+
+    Route::get('customers/search', 'CustomerController@getSearch')->name('customers.search-form');
+    Route::post('customers/search', 'CustomerController@postSearch')->name('customers.search');
+    Route::resource('customers', 'CustomerController');
+
+    Route::resource('vehicles', 'VehicleController');
+
+});

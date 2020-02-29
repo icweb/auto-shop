@@ -6,6 +6,8 @@ use Illuminate\Database\Eloquent\Model;
 
 class VehicleMileage extends Model
 {
+    protected $table = 'vehicle_mileage';
+
     protected $fillable = [
         'author_id',
         'vehicle_id',

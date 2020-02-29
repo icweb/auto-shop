@@ -16,7 +16,12 @@ class EmployeeSeeder extends Seeder
                 'name' => 'Katie Copelli',
                 'email' => 'katie@example.com',
                 'password' => bcrypt('ianisawesome')
-            ]
+            ],
+            [
+                'name' => 'Jesse Copelli',
+                'email' => 'jesse@example.com',
+                'password' => bcrypt('katieisawesome')
+            ],
         ];
 
         foreach($employees as $employee)
