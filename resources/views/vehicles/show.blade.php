@@ -9,7 +9,7 @@
                     <h3 class="display-4 mb-0" style="font-size:30px !important;">
                         <i class="far fa-car"></i> {{ $vehicle->make }} {{ $vehicle->model }}
                         <div class="float-right">
-                            <a href="" class="btn btn-warning btn-sm"><i class="far fa-pencil"></i></a>
+                            <a href="{{ route('vehicles.edit', [$vehicle->customer, $vehicle]) }}" class="btn btn-warning btn-sm"><i class="far fa-pencil"></i></a>
                             <a href="" class="btn btn-danger btn-sm"><i class="far fa-trash"></i></a>
                         </div>
                     </h3>
@@ -65,33 +65,11 @@
 
                 <div class="card mb-5">
                     <div class="card-header bg-dark text-white">
+                        <a href="{{ route('rendered-services.create', $vehicle->customer) }}?source=vehicle&v={{ $vehicle->id }}" class="float-right text-white"><i class="far fa-plus"></i> New</a>
                         <i class="far fa-folders"></i> Rendered Services
                     </div>
                     <div class="card-body">
-                        <table class="table mb-0 dt-table">
-                            <thead>
-                                <tr>
-                                    <th>What</th>
-                                    <th>When</th>
-                                    <th>Who</th>
-                                    <th>Cost</th>
-                                    <th></th>
-                                </tr>
-                            </thead>
-                            <tbody>
-                                @foreach($vehicle->renderedServices as $renderedService)
-                                    <tr>
-                                        <td>{{ $renderedService->service->name }}</td>
-                                        <td>{{ $renderedService->completed_at === null ? 'Never' : $renderedService->completed_at->format('m/d/Y') }}</td>
-                                        <td>{{ $renderedService->employee->name }}</td>
-                                        <td>{{ $renderedService->cost }}</td>
-                                        <td class="text-right">
-                                            <a href="#" class="btn btn-sm btn-info text-white"><i class="far fa-folder-open"></i> View</a>
-                                        </td>
-                                    </tr>
-                                @endforeach
-                            </tbody>
-                        </table>
+                        @include('rendered-services.partial-index-table', ['renderedServices' => $vehicle->renderedServices, 'showVehicle' => false])
                     </div>
                 </div>
 

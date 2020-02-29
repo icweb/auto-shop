@@ -16,7 +16,7 @@ class CreateRenderedServicesTable extends Migration
         Schema::create('rendered_services', function (Blueprint $table) {
             $table->bigIncrements('id');
             $table->unsignedBigInteger('author_id');
-            $table->unsignedBigInteger('employee_id');
+            $table->unsignedBigInteger('employee_id')->nullable();
             $table->unsignedBigInteger('service_id');
             $table->unsignedBigInteger('customer_id');
             $table->unsignedBigInteger('vehicle_id');

@@ -13,7 +13,6 @@ class SettingsSeeder extends Seeder
     {
         $settings = new \App\Setting();
         $settings->author_id = 1;
-        $settings->vehicle_show_mileage_history = 1;
         $settings->save();
     }
 }

@@ -1,9 +1,10 @@
 TODO
 
-Edit/Delete Customers, Vehicles
+Delete Customers, Vehicles
 
 Invoices
 - Groups together multiple rendered services
+- make an invoice_id column on a rendered service to set it apart to tell it needs invoiced
 
 Scheduling
 - Appointments, etc.

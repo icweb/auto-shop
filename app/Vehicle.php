@@ -45,7 +45,7 @@ class Vehicle extends Model
             return $last_mileage->mileage;
         }
 
-        return 'Unknown';
+        return 0;
     }
 
     public function customer()
@@ -55,7 +55,7 @@ class Vehicle extends Model
 
     public function mileage()
     {
-        return $this->hasMany(VehicleMileage::class, 'vehicle_id')->with('author');
+        return $this->hasMany(VehicleMileage::class, 'vehicle_id')->with(['author']);
     }
 
     public function renderedServices()

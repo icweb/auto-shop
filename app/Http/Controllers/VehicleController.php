@@ -2,7 +2,9 @@
 
 namespace App\Http\Controllers;
 
+use App\Customer;
 use App\Vehicle;
+use App\VehicleMileage;
 use Illuminate\Http\Request;
 
 class VehicleController extends Controller
@@ -117,22 +119,65 @@ class VehicleController extends Controller
     /**
      * Show the form for creating a new resource.
      *
+     * @param Customer $customer
      * @return \Illuminate\Http\Response
      */
-    public function create()
+    public function create(Customer $customer)
     {
-        //
+        return view('vehicles.create', compact('customer'));
     }
 
     /**
      * Store a newly created resource in storage.
      *
-     * @param  \Illuminate\Http\Request  $request
-     * @return \Illuminate\Http\Response
+     * @param Request $request
+     * @param Customer $customer
+     * @return \Illuminate\Http\RedirectResponse
+     * @throws \Illuminate\Validation\ValidationException
      */
-    public function store(Request $request)
+    public function store(Request $request, Customer $customer)
     {
-        //
+        $this->validate($request, [
+            'make' => 'required|string',
+            'model' => 'required|string',
+            'year' => 'nullable|string|sometimes',
+            'color' => 'nullable|string|sometimes',
+            'body_type' => 'nullable|string|sometimes',
+            'license_plate' => 'nullable|string|sometimes',
+            'vin' => 'nullable|string|sometimes',
+            'mileage' => 'nullable|string|sometimes',
+            'comments' => 'nullable|string|sometimes',
+        ]);
+
+        $vehicle = new Vehicle();
+        $vehicle->author_id = auth()->id();
+        $vehicle->customer_id = $customer->id;
+        $vehicle->make = request()->input('make');
+        $vehicle->model = request()->input('model');
+        $vehicle->year = request()->input('year');
+        $vehicle->color = request()->input('color');
+        $vehicle->body_type = request()->input('body_type');
+        $vehicle->license_plate = request()->input('license_plate');
+        $vehicle->vin = request()->input('vin');
+        $vehicle->comments = request()->input('comments');
+        $vehicle->save();
+
+        if(!empty(request()->input('mileage')))
+        {
+            $current_mileage = request()->input('mileage');
+        }
+        else
+        {
+            $current_mileage = 0;
+        }
+
+        $mileage = new VehicleMileage();
+        $mileage->author_id = auth()->id();
+        $mileage->vehicle_id = $vehicle->id;
+        $mileage->mileage = $current_mileage;
+        $mileage->save();
+
+        return redirect()->route('vehicles.show', $vehicle);
     }
 
     /**
@@ -151,24 +196,58 @@ class VehicleController extends Controller
     /**
      * Show the form for editing the specified resource.
      *
+     * @param  Customer $customer
      * @param  \App\Vehicle  $vehicle
      * @return \Illuminate\Http\Response
      */
-    public function edit(Vehicle $vehicle)
+    public function edit(Customer $customer, Vehicle $vehicle)
     {
-        //
+        return view('vehicles.edit', compact('vehicle', 'customer'));
     }
 
     /**
      * Update the specified resource in storage.
      *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  \App\Vehicle  $vehicle
-     * @return \Illuminate\Http\Response
+     * @param Request $request
+     * @param Customer $customer
+     * @param Vehicle $vehicle
+     * @return \Illuminate\Http\RedirectResponse
+     * @throws \Illuminate\Validation\ValidationException
      */
-    public function update(Request $request, Vehicle $vehicle)
+    public function update(Request $request, Customer $customer, Vehicle $vehicle)
     {
-        //
+        $this->validate($request, [
+            'make' => 'required|string',
+            'model' => 'required|string',
+            'year' => 'nullable|string|sometimes',
+            'color' => 'nullable|string|sometimes',
+            'body_type' => 'nullable|string|sometimes',
+            'license_plate' => 'nullable|string|sometimes',
+            'vin' => 'nullable|string|sometimes',
+            'mileage' => 'nullable|string|sometimes',
+            'comments' => 'nullable|string|sometimes',
+        ]);
+
+        $vehicle->make = request()->input('make');
+        $vehicle->model = request()->input('model');
+        $vehicle->year = request()->input('year');
+        $vehicle->color = request()->input('color');
+        $vehicle->body_type = request()->input('body_type');
+        $vehicle->license_plate = request()->input('license_plate');
+        $vehicle->vin = request()->input('vin');
+        $vehicle->comments = request()->input('comments');
+        $vehicle->save();
+
+        if(!empty(request()->input('mileage')) && request()->input('mileage') != $vehicle->last_mileage)
+        {
+            $mileage = new VehicleMileage();
+            $mileage->author_id = auth()->id();
+            $mileage->vehicle_id = $vehicle->id;
+            $mileage->mileage = request()->input('mileage');
+            $mileage->save();
+        }
+
+        return redirect()->route('vehicles.show', $vehicle);
     }
 
     /**

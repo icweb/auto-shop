@@ -24,11 +24,23 @@
         {
             padding: 40px 40px 30px 40px;
         }
+
+        .navbar
+        {
+            background-color: {{ \App\Setting::check('global_nav_background_color') }} !important;
+            color: {{ \App\Setting::check('global_nav_foreground_color') }} !important;
+        }
+
+        .dropdown-toggle,
+        .navbar-brand
+        {
+            color: {{ \App\Setting::check('global_nav_foreground_color') }} !important;
+        }
     </style>
 </head>
 <body>
     <div id="app">
-        <nav class="navbar navbar-expand-md navbar-dark bg-dark shadow-sm">
+        <nav class="navbar navbar-expand-md shadow-sm">
             <div class="container">
                 <a class="navbar-brand" href="{{ route('home') }}">
                     {{ config('app.name', 'Auto Shop') }}

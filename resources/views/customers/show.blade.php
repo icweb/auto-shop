@@ -49,6 +49,7 @@
 
                 <div class="card mb-4">
                     <div class="card-header bg-dark text-white">
+                        <a href="{{ route('vehicles.create', $customer) }}" class="float-right text-white"><i class="far fa-plus"></i> New</a>
                         <i class="far fa-cars"></i> Vehicles
                     </div>
                     <div class="card-body">
@@ -92,33 +93,11 @@
 
                 <div class="card mb-5">
                     <div class="card-header bg-dark text-white">
+                        <a href="{{ route('rendered-services.create', $customer) }}?source=customer" class="float-right text-white"><i class="far fa-plus"></i> New</a>
                         <i class="far fa-folders"></i> Rendered Services
                     </div>
                     <div class="card-body">
-                        <table class="table mb-0 dt-table">
-                            <thead>
-                                <tr>
-                                    <th>What</th>
-                                    <th>When</th>
-                                    <th>Who</th>
-                                    <th>Cost</th>
-                                    <th></th>
-                                </tr>
-                            </thead>
-                            <tbody>
-                                @foreach($customer->renderedServices as $renderedService)
-                                    <tr>
-                                        <td>{{ $renderedService->service->name }}</td>
-                                        <td>{{ $renderedService->completed_at === null ? 'Never' : $renderedService->completed_at->format('m/d/Y') }}</td>
-                                        <td>{{ $renderedService->employee->name }}</td>
-                                        <td>{{ $renderedService->cost }}</td>
-                                        <td class="text-right">
-                                            <a href="#" class="btn btn-sm btn-info text-white"><i class="far fa-folder-open"></i> View</a>
-                                        </td>
-                                    </tr>
-                                @endforeach
-                            </tbody>
-                        </table>
+                        @include('rendered-services.partial-index-table', ['renderedServices' => $customer->renderedServices, 'showVehicle' => true])
                     </div>
                 </div>
             </div>
