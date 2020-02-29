@@ -12,8 +12,13 @@
                     <nav aria-label="breadcrumb">
                         <ol class="breadcrumb mb-0">
                             <li class="breadcrumb-item"><a href="{{ route('home') }}">Home</a></li>
-                            <li class="breadcrumb-item"><a href="{{ route('customers.index') }}">Customers</a></li>
-                            <li class="breadcrumb-item"><a href="{{ route('customers.show', $customer) }}">{{ $customer->first_name }} {{ $customer->last_name }}</a></li>
+                            @if(isset($_GET['source']) && $_GET['source'] === 'vehicle' && isset($vehicle))
+                                <li class="breadcrumb-item"><a href="{{ route('vehicles.index') }}">Vehicles</a></li>
+                                <li class="breadcrumb-item"><a href="{{ route('vehicles.show', $vehicle) }}">{{ $vehicle->make }} {{ $vehicle->model }}</a></li>
+                            @else
+                                <li class="breadcrumb-item"><a href="{{ route('customers.index') }}">Customers</a></li>
+                                <li class="breadcrumb-item"><a href="{{ route('customers.show', $customer) }}">{{ $customer->first_name }} {{ $customer->last_name }}</a></li>
+                            @endif
                             <li class="breadcrumb-item active">Create New Rendered Service</li>
                         </ol>
                     </nav>

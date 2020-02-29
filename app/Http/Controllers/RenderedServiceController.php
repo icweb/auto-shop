@@ -6,6 +6,7 @@ use App\Customer;
 use App\RenderedService;
 use App\Service;
 use App\User;
+use App\Vehicle;
 use Illuminate\Http\Request;
 
 class RenderedServiceController extends Controller
@@ -32,7 +33,16 @@ class RenderedServiceController extends Controller
         $vehicles = $customer->vehicles()->orderBy('make')->get();
         $employees = User::orderBy('name')->get();
 
-        return view('rendered-services.create', compact('customer', 'services', 'vehicles', 'employees'));
+        if(isset($_GET['v']))
+        {
+            $vehicle = Vehicle::findOrFail($_GET['v']);
+        }
+        else
+        {
+            $vehicle = $vehicles->first();
+        }
+
+        return view('rendered-services.create', compact('customer', 'services', 'vehicles', 'employees', 'vehicle'));
     }
 
     /**
