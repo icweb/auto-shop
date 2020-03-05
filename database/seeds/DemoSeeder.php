@@ -16,6 +16,8 @@ class DemoSeeder extends Seeder
 
         $body_types = ['Sedan', 'Coop', 'SUV'];
 
+        $days = 0;
+
         for($x = 0; $x < 100; $x++)
         {
             $customer = new \App\Customer();
@@ -74,6 +76,44 @@ class DemoSeeder extends Seeder
                     $rendered_service->save();
                 }
             }
+
+            $times = [
+                [
+                    'start' => [9,00],
+                    'end' => [10,00],
+                ],
+                [
+                    'start' => [10,30],
+                    'end' => [12,00],
+                ],
+                [
+                    'start' => [13,00],
+                    'end' => [14,30],
+                ],
+                [
+                    'start' => [14,45],
+                    'end' => [15,30],
+                ],
+                [
+                    'start' => [16,00],
+                    'end' => [17,00],
+                ],
+            ];
+
+            for($b = 0; $b < 5; $b++)
+            {
+                $start_date = \Carbon\Carbon::now()->addDays($days);
+
+                $appointment = new \App\Appointment();
+                $appointment->author_id = 1;
+                $appointment->customer_id = $customer->id;
+                $appointment->starts_at = $start_date->setTime($times[$b]['start'][0], $times[$b]['start'][1]);
+                $appointment->ends_at = $start_date->setTime($times[$b]['end'][0], $times[$b]['end'][1]);
+                $appointment->comments = $faker->paragraph;
+                $appointment->save();
+            }
+
+            $days += 1;
         }
     }
 }

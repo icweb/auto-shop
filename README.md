@@ -11,11 +11,7 @@ Scheduling
 
 Maybe an archiving service?
 
-Backup Service
-
 Export Customers to Excel (Maybe Even Import)
-
-Auditing For Sure
 
 Lock forms/ui on submit
 
@@ -32,3 +28,11 @@ Search
 
 Deleting Records
 - Soft Deletes
+
+
+
+Setup & Install
+
+- Setup Email (To/From)
+- Setup Backup Storage (Verify the db back works on server, add somewhere to store these backups)
+- Setup Task Scheduler

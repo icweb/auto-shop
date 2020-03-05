@@ -3,10 +3,13 @@
 namespace App\Http\Controllers;
 
 use App\Customer;
+use App\Exports\CustomersExport;
 use Illuminate\Http\Request;
 
-class CustomerController extends Controller
+class CustomerController extends BaseController
 {
+    public $export_class = CustomersExport::class;
+
     /**
      * Display a listing of the resource.
      *

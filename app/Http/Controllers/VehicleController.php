@@ -3,12 +3,15 @@
 namespace App\Http\Controllers;
 
 use App\Customer;
+use App\Exports\VehiclesExport;
 use App\Vehicle;
 use App\VehicleMileage;
 use Illuminate\Http\Request;
 
-class VehicleController extends Controller
+class VehicleController extends BaseController
 {
+    public $export_class = VehiclesExport::class;
+
     private function _getBodyTypes()
     {
         return Vehicle::select('body_type')->groupBy('body_type')->groupBy('body_type')->pluck('body_type')->toArray();

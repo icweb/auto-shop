@@ -17,6 +17,16 @@
     <link href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.1.3/css/bootstrap.css" rel="stylesheet">
     <link href="https://cdn.datatables.net/1.10.20/css/dataTables.bootstrap4.min.css" rel="stylesheet">
 
+    <link href="{{ asset('vendor/fullcalendar/core/main.css') }}" rel='stylesheet' />
+    <link href="{{ asset('vendor/fullcalendar/daygrid/main.css') }}" rel='stylesheet' />
+    <link href="{{ asset('vendor/fullcalendar/timegrid/main.css') }}" rel='stylesheet' />
+    <link href="{{ asset('vendor/fullcalendar/list/main.css') }}" rel='stylesheet' />
+
+    <script src="{{ asset('vendor/fullcalendar/core/main.js') }}"></script>
+    <script src='{{ asset('vendor/fullcalendar/daygrid/main.js') }}'></script>
+    <script src='{{ asset('vendor/fullcalendar/timegrid/main.js') }}'></script>
+    <script src='{{ asset('vendor/fullcalendar/list/main.js') }}'></script>
+
     <script src="https://kit.fontawesome.com/809967d1ac.js" crossorigin="anonymous"></script>
 
     <style type="text/css">
@@ -32,7 +42,8 @@
         }
 
         .dropdown-toggle,
-        .navbar-brand
+        .navbar-brand,
+        .nav-item > .nav-link
         {
             color: {{ \App\Setting::check('global_nav_foreground_color') }} !important;
         }
@@ -53,6 +64,11 @@
                     <!-- Left Side Of Navbar -->
                     <ul class="navbar-nav mr-auto">
                         @auth
+
+                            <li class="nav-item">
+                                <a class="nav-link" href="{{ route('appointments.index') }}"><i class="far fa-calendar fa-fw"></i> Schedule</a>
+                            </li>
+
                             <li class="nav-item dropdown">
                                 <a id="customersDropdown" class="nav-link dropdown-toggle" href="#" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" v-pre>
                                     <i class="far fa-users"></i> Customers <span class="caret"></span>
@@ -62,6 +78,7 @@
                                     <a class="nav-link text-dark" href="{{ route('customers.search-form') }}"><i class="far fa-search fa-fw"></i> Search</a>
                                     <a class="nav-link text-dark" href="{{ route('customers.create') }}"><i class="far fa-plus fa-fw"></i> Create</a>
                                     <a class="nav-link text-dark" href="{{ route('customers.index') }}"><i class="far fa-users fa-fw"></i> All</a>
+                                    <a class="nav-link text-dark" href="{{ route('customers.export') }}"><i class="far fa-download fa-fw"></i> Export</a>
                                 </div>
                             </li>
 
@@ -73,6 +90,7 @@
                                 <div class="dropdown-menu dropdown-menu-right" aria-labelledby="customersDropdown">
                                     <a class="nav-link text-dark" href="{{ route('vehicles.search') }}"><i class="far fa-search fa-fw"></i> Search</a>
                                     <a class="nav-link text-dark" href="{{ route('vehicles.index') }}"><i class="far fa-cars fa-fw"></i> All</a>
+                                    <a class="nav-link text-dark" href="{{ route('vehicles.export') }}"><i class="far fa-download fa-fw"></i> Export</a>
                                 </div>
                             </li>
 
