@@ -54,4 +54,9 @@ class Customer extends BaseModel
     {
         return $this->hasMany(RenderedService::class)->orderBy('completed_at', 'desc');
     }
+
+    public function invoices()
+    {
+        return $this->hasMany(Invoice::class);
+    }
 }

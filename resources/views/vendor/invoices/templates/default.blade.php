@@ -53,15 +53,15 @@
         {{-- Seller - Buyer --}}
         <table class="table">
             <thead>
-                <tr>
-                    <th class="border-0 pl-0" width="48.5%">
-                        <h2>{{ __('invoices::invoice.seller') }}</h2>
-                    </th>
-                    <th class="border-0" width="3%"></th>
-                    <th class="border-0 pl-0">
-                        <h2>{{ __('invoices::invoice.buyer') }}</h2>
-                    </th>
-                </tr>
+            <tr>
+                <th class="border-0 pl-0" width="48.5%">
+                    <h2>{{ __('invoices::invoice.seller') }}</h2>
+                </th>
+                <th class="border-0" width="3%"></th>
+                <th class="border-0 pl-0">
+                    <h2>{{ __('invoices::invoice.buyer') }}</h2>
+                </th>
+            </tr>
             </thead>
             <tbody>
                 <tr>

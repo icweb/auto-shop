@@ -21,6 +21,7 @@ class Invoice extends BaseModel
         'total_grand',
         'amount_due',
         'amount_paid',
+        'converted_from_quote',
         'comments',
         'due_at',
         'paid_at',
@@ -81,10 +82,7 @@ class Invoice extends BaseModel
         $business = new Party([
             'name' => Setting::check('invoice_business_name'),
             'address' => Setting::check('invoice_address'),
-            'phone' => Setting::check('invoice_phone'),
-            'custom_fields' => [
-                'business_hours' => Setting::check('invoice_hours'),
-            ],
+            'phone' => Setting::check('invoice_phone')
         ]);
 
         $customer = new Buyer([

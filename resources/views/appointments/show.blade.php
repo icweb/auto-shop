@@ -74,7 +74,7 @@
                 <div class="card mt-4">
                     <div class="card-body">
                         <b>Invoices</b><br>
-                        @include('invoices.partial-index-table', ['invoices' => $appointment->invoices])
+                        @include('invoices.partial-index-table', ['invoices' => $appointment->invoices, 'showCustomer' => false])
                     </div>
                 </div>
             </div>

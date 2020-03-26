@@ -27,6 +27,7 @@ class CreateInvoicesTable extends Migration
             $table->unsignedBigInteger('total_grand')->default(0);
             $table->unsignedBigInteger('amount_due')->default(0);
             $table->unsignedBigInteger('amount_paid')->default(0);
+            $table->boolean('converted_from_quote')->default(0);
             $table->longText('comments')->nullable();
             $table->timestamp('due_at')->nullable();
             $table->timestamp('paid_at')->nullable();

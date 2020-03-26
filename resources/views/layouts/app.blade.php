@@ -102,6 +102,18 @@
                             </li>
 
                             <li class="nav-item dropdown">
+                                <a id="customersDropdown" class="nav-link dropdown-toggle" href="#" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" v-pre>
+                                    <i class="far fa-file-invoice-dollar"></i> Invoices <span class="caret"></span>
+                                </a>
+
+                                <div class="dropdown-menu dropdown-menu-right" aria-labelledby="customersDropdown">
+                                    <a class="nav-link text-dark" href="#"><i class="far fa-search fa-fw"></i> Search</a>
+                                    <a class="nav-link text-dark" href="{{ route('invoices.index') }}"><i class="far fa-file-invoice-dollar fa-fw"></i> All</a>
+                                    <a class="nav-link text-dark" href="#"><i class="far fa-download fa-fw"></i> Export</a>
+                                </div>
+                            </li>
+
+                            <li class="nav-item dropdown">
                                 <a id="adminDropdown" class="nav-link dropdown-toggle" href="#" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" v-pre>
                                     <i class="far fa-lock"></i> Admin <span class="caret"></span>
                                 </a>
@@ -173,6 +185,9 @@
                 'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
             }
         });
+        $(function () {
+            $('[data-toggle="tooltip"]').tooltip()
+        })
     </script>
 
 @yield('footer')

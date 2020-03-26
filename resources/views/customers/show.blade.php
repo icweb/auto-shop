@@ -86,8 +86,17 @@
                     <div class="card-header bg-dark text-white">
                         <i class="far fa-calendar"></i> Appointments
                     </div>
-                    <div>
+                    <div class="card-body">
 
+                    </div>
+                </div>
+
+                <div class="card mb-5">
+                    <div class="card-header bg-dark text-white">
+                        <i class="far fa-file-invoice-dollar"></i> Invoices
+                    </div>
+                    <div class="card-body">
+                        @include('invoices.partial-index-table', ['invoices' => $customer->invoices, 'showCustomer' => false])
                     </div>
                 </div>
 
