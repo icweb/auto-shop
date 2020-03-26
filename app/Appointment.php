@@ -61,4 +61,9 @@ class Appointment extends BaseModel
     {
         return $this->hasMany(AppointmentService::class, 'appointment_id');
     }
+
+    public function invoices()
+    {
+        return $this->hasMany(Invoice::class, 'appointment_id');
+    }
 }

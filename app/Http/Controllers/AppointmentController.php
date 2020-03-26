@@ -5,7 +5,6 @@ namespace App\Http\Controllers;
 use App\Appointment;
 use App\AppointmentService;
 use App\Holiday;
-use Carbon\Carbon;
 use Illuminate\Http\Request;
 
 class AppointmentController extends Controller
@@ -125,7 +124,7 @@ class AppointmentController extends Controller
      */
     public function show(Appointment $appointment)
     {
-        $appointment->load(['customer', 'services']);
+        $appointment->load(['customer', 'services', 'invoices']);
         return view('appointments.show', compact('appointment'));
     }
 

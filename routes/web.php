@@ -45,6 +45,8 @@ Route::group(['middleware' => ['firewall.all']], function(){
         Route::get('appointments/feed', 'AppointmentController@feed')->name('appointments.feed');
         Route::resource('appointments', 'AppointmentController');
 
+        Route::get('invoices/{invoice}/pdf', 'InvoiceController@pdf')->name('invoices.pdf');
+        Route::resource('invoices', 'InvoiceController');
     });
 
 });

@@ -17,6 +17,10 @@ Calendar - you cant get back to agenda view
 
 Appointment Services table shouldn't have rendered services link
 
+Move invoice pdf out of public
+
+system time zone seems off - audits are at least off
+
 
 ___
 ### Future Features

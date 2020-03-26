@@ -23,19 +23,19 @@ class ServicesSeeder extends Seeder
         $services = [
             [
                 'name' => 'Oil Change',
-                'cost' => '1.00',
+                'cost' => 100,
             ],
             [
                 'name' => 'Inspection',
-                'cost' => '1.00',
+                'cost' => 100,
             ],
             [
                 'name' => 'Emissions',
-                'cost' => '1.00',
+                'cost' => 100,
             ],
             [
                 'name' => 'Tire Alignment',
-                'cost' => '1.00',
+                'cost' => 100,
             ],
         ];
 

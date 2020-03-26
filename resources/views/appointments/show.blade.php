@@ -70,6 +70,44 @@
                     </div>
                 </div>
             </div>
+            <div class="col-12">
+                <div class="card mt-4">
+                    <div class="card-body">
+                        <b>Invoices</b><br>
+                        @include('invoices.partial-index-table', ['invoices' => $appointment->invoices])
+                    </div>
+                </div>
+            </div>
+            <div class="col-12">
+                <div class="card mt-4">
+                    <div class="card-body">
+                        <b>Changes</b><br>
+                        <table class="table mb-0 dt-table">
+                            <thead>
+                                <tr>
+                                    <th>ID</th>
+                                    <th>Old</th>
+                                    <th>New</th>
+                                    <th>When</th>
+                                    <th>Who</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                            @foreach($appointment->audits as $audit)
+                                <tr>
+                                    <td><code>{{ $audit->id }}</code></td>
+                                    <td style="width: 300px"><code>{{ json_encode($audit->old_values) }}</code></td>
+                                    <td style="width: 300px"><code>{{ json_encode($audit->new_values) }}</code></td>
+                                    <td>{{ $audit->created_at->format('m/d/Y h:i a') }}</td>
+                                    <td>{{ $audit->user->name }}</td>
+                                </tr>
+                            @endforeach
+                            </tbody>
+                        </table>
+
+                    </div>
+                </div>
+            </div>
         </div>
     </div>
 @endsection

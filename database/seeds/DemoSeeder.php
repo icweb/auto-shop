@@ -113,6 +113,27 @@ class DemoSeeder extends Seeder
                 $appointment->comments = $faker->paragraph;
                 $appointment->save();
 
+                $invoice_total_sub = rand(5000,25000);
+                $invoice_total_tax = $invoice_total_sub * .06;
+                $invoice_total_discount = rand(0, 50);
+                $invoice_total_grand = ($invoice_total_sub + $invoice_total_tax) - $invoice_total_discount;
+                $invoice = new \App\Invoice();
+                $invoice->author_id = 1;
+                $invoice->customer_id = $customer->id;
+                $invoice->appointment_id = $appointment->id;
+                $invoice->status = $invoice->statuses[array_rand($invoice->statuses)];
+                $invoice->pay_until_days = 0;
+                $invoice->total_sub = $invoice_total_sub;
+                $invoice->total_tax = $invoice_total_tax;
+                $invoice->total_discount = $invoice_total_discount;
+                $invoice->total_grand = $invoice_total_grand;
+                $invoice->amount_due = $invoice_total_grand;
+                $invoice->amount_paid = 0;
+                $invoice->comments =  $faker->paragraph;
+                $invoice->due_at = \Carbon\Carbon::now();
+                $invoice->paid_at = null;
+                $invoice->save();
+
                 for($c = 0; $c < 5; $c++)
                 {
                     $random_service = \App\Service::all()->random();
@@ -125,6 +146,16 @@ class DemoSeeder extends Seeder
                     $appointment_service->cost = $random_service->cost;
                     $appointment_service->comments = $faker->paragraph;
                     $appointment_service->save();
+
+                    $invoice_item = new \App\InvoiceItem();
+                    $invoice_item->author_id = 1;
+                    $invoice_item->invoice_id = $invoice->id;
+                    $invoice_item->appointment_service_id = $appointment_service->id;
+                    $invoice_item->unit_price = $random_service->cost;
+                    $invoice_item->description = $random_service->name;
+                    $invoice_item->quantity = 1;
+                    $invoice_item->line_total = $random_service->cost;
+                    $invoice_item->save();
                 }
             }
 

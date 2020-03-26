@@ -22,6 +22,10 @@ class CreateSettingsTable extends Migration
             $table->string('calendar_left_buttons')->default('prev,addEventButton,next');
             $table->string('calendar_middle_buttons')->default('title');
             $table->string('calendar_right_buttons')->default('today,month,dayGridMonth,dayGridWeek,timeGridDay,list');
+            $table->string('invoice_business_name')->default('Copelli Auto Service');
+            $table->string('invoice_address')->default('1549 5th Ave,<br>Latrobe, PA 15650');
+            $table->string('invoice_phone')->default('724-539-2756');
+            $table->longText('invoice_hours');
             $table->timestamps();
             $table->softDeletes();
         });

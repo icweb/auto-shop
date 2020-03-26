@@ -17,7 +17,7 @@ class CreateServicesTable extends Migration
             $table->bigIncrements('id');
             $table->unsignedBigInteger('author_id');
             $table->string('name');
-            $table->string('cost')->nullable();
+            $table->unsignedBigInteger('cost')->nullable();
             $table->longText('comments')->nullable();
             $table->timestamps();
             $table->softDeletes();
