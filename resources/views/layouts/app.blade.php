@@ -16,6 +16,7 @@
     <!-- Styles -->
     <link href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.1.3/css/bootstrap.css" rel="stylesheet">
     <link href="https://cdn.datatables.net/1.10.20/css/dataTables.bootstrap4.min.css" rel="stylesheet">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/css/toastr.min.css" rel="stylesheet">
 
     <link href="{{ asset('vendor/fullcalendar/core/main.css') }}" rel='stylesheet' />
     <link href="{{ asset('vendor/fullcalendar/daygrid/main.css') }}" rel='stylesheet' />
@@ -26,6 +27,7 @@
     <script src='{{ asset('vendor/fullcalendar/daygrid/main.js') }}'></script>
     <script src='{{ asset('vendor/fullcalendar/timegrid/main.js') }}'></script>
     <script src='{{ asset('vendor/fullcalendar/list/main.js') }}'></script>
+    <script src='{{ asset('vendor/fullcalendar/interaction/main.js') }}'></script>
 
     <script src="https://kit.fontawesome.com/809967d1ac.js" crossorigin="anonymous"></script>
 
@@ -46,6 +48,10 @@
         .nav-item > .nav-link
         {
             color: {{ \App\Setting::check('global_nav_foreground_color') }} !important;
+        }
+
+        .full-cal-event {
+            cursor: pointer;
         }
     </style>
 </head>
@@ -155,10 +161,17 @@
     <script src="https://cdn.datatables.net/1.10.20/js/jquery.dataTables.min.js"></script>
     <script src="https://cdn.datatables.net/1.10.20/js/dataTables.bootstrap4.min.js"></script>
 
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/js/toastr.min.js"></script>
+
     <script>
         $(document).ready( function () {
             $('.dt-table').DataTable();
         } );
+        $.ajaxSetup({
+            headers: {
+                'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+            }
+        });
     </script>
 
 @yield('footer')

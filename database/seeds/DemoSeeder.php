@@ -109,8 +109,23 @@ class DemoSeeder extends Seeder
                 $appointment->customer_id = $customer->id;
                 $appointment->starts_at = $start_date->setTime($times[$b]['start'][0], $times[$b]['start'][1]);
                 $appointment->ends_at = $start_date->setTime($times[$b]['end'][0], $times[$b]['end'][1]);
+                $appointment->color = $appointment->colors[array_rand($appointment->colors)];
                 $appointment->comments = $faker->paragraph;
                 $appointment->save();
+
+                for($c = 0; $c < 5; $c++)
+                {
+                    $random_service = \App\Service::all()->random();
+                    $random_vehicle = $customer->vehicles->random();
+                    $appointment_service = new \App\AppointmentService();
+                    $appointment_service->author_id = 1;
+                    $appointment_service->service_id = $random_service->id;
+                    $appointment_service->appointment_id = $appointment->id;
+                    $appointment_service->vehicle_id = $random_vehicle->id;
+                    $appointment_service->cost = $random_service->cost;
+                    $appointment_service->comments = $faker->paragraph;
+                    $appointment_service->save();
+                }
             }
 
             $days += 1;

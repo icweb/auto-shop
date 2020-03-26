@@ -19,6 +19,9 @@ class CreateSettingsTable extends Migration
             $table->string('global_nav_foreground_color')->default('#FFFFFF');
             $table->string('global_nav_background_color')->default('#343A40');
             $table->boolean('vehicle_show_mileage_history')->default(1);
+            $table->string('calendar_left_buttons')->default('addEventButton');
+            $table->string('calendar_middle_buttons')->default('prev,title,next');
+            $table->string('calendar_right_buttons')->default('today,month,dayGridMonth,dayGridWeek,timeGridDay,list');
             $table->timestamps();
             $table->softDeletes();
         });

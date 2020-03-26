@@ -69,7 +69,7 @@
                         <i class="far fa-folders"></i> Rendered Services
                     </div>
                     <div class="card-body">
-                        @include('rendered-services.partial-index-table', ['renderedServices' => $vehicle->renderedServices, 'showVehicle' => false])
+                        @include('rendered-services.partial-index-table', ['renderedServices' => $vehicle->renderedServices, 'showVehicle' => false, 'showExpanded' => true, 'dataTable' => true])
                     </div>
                 </div>
 

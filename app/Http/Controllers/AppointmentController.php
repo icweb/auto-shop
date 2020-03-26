@@ -4,6 +4,8 @@ namespace App\Http\Controllers;
 
 use App\Appointment;
 use App\AppointmentService;
+use App\Holiday;
+use Carbon\Carbon;
 use Illuminate\Http\Request;
 
 class AppointmentController extends Controller
@@ -13,7 +15,7 @@ class AppointmentController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function index()
+    public function index(Holiday $holiday)
     {
         $appointments = Appointment::all();
 
@@ -43,8 +45,8 @@ class AppointmentController extends Controller
         $this->validate($request, [
             'customer' => 'required',
             'comments' => 'string|nullable|sometimes',
-            'starts_at' => 'required|timestamp',
-            'ends_at' => 'required|timestamp',
+            'starts_at' => 'string|date',
+            'ends_at' => 'string|date',
         ]);
 
         $appointment = Appointment::create([
@@ -77,6 +79,7 @@ class AppointmentController extends Controller
      */
     public function show(Appointment $appointment)
     {
+        $appointment->load(['customer', 'services']);
         return view('appointments.show', compact('appointment'));
     }
 
@@ -101,20 +104,35 @@ class AppointmentController extends Controller
     public function update(Request $request, Appointment $appointment)
     {
         $this->validate($request, [
-            'customer' => 'required',
+            'customer' => 'string|nullable|sometimes',
             'comments' => 'string|nullable|sometimes',
-            'starts_at' => 'required|timestamp',
-            'ends_at' => 'required|timestamp',
+            'starts_at' => 'string|nullable|sometimes',
+            'ends_at' => 'string|nullable|sometimes',
         ]);
 
-        $appointment->update([
+        $data = [
             'customer_id' => request()->input('customer'),
             'comments' => request()->input('comments'),
-            'starts_at' => request()->input('starts_at'),
-            'ends_at' => request()->input('ends_at'),
-        ]);
+            'starts_at' => date('Y-m-d H:i:s', strtotime(request()->input('starts_at'))),
+            'ends_at' => date('Y-m-d H:i:s', strtotime(request()->input('ends_at'))),
+        ];
 
-        return view('appointments.show', compact('appointment'));
+        if(!request()->exists('customer')) unset($data['customer_id']);
+        if(!request()->exists('comments')) unset($data['comments']);
+        if(!request()->exists('starts_at')) unset($data['starts_at']);
+        if(!request()->exists('ends_at')) unset($data['ends_at']);
+
+        $appointment->update($data);
+
+        if(request()->ajax())
+        {
+            return response()->json([]);
+        }
+        else
+        {
+            return view('appointments.show', compact('appointment'));
+        }
+
     }
 
     /**

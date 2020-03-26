@@ -24,7 +24,7 @@ return [
     'notifications' => [
 
         'mail' => [
-            'enabled' => env('FIREWALL_EMAIL_ENABLED', false),
+            'enabled' => env('FIREWALL_EMAIL_ENABLED', true),
             'name' => env('FIREWALL_EMAIL_NAME', 'Laravel Firewall'),
             'from' => env('FIREWALL_EMAIL_FROM', 'firewall@mydomain.com'),
             'to' => [env('FIREWALL_EMAIL_TO', 'admin@mydomain.com')],

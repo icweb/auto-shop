@@ -17,6 +17,7 @@ class CreateAppointmentsTable extends Migration
             $table->bigIncrements('id');
             $table->unsignedBigInteger('author_id');
             $table->unsignedBigInteger('customer_id');
+            $table->string('color')->default('#000000');
             $table->longText('comments')->nullable();
             $table->timestamp('starts_at')->nullable();
             $table->timestamp('ends_at')->nullable();

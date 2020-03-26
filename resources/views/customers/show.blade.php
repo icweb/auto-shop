@@ -7,7 +7,7 @@
 
                 <div class="jumbotron">
                     <h3 class="display-4 mb-0" style="font-size:30px !important;">
-                        <i class="far fa-user"></i> {{ $customer->first_name }} {{ $customer->last_name }}
+                        <i class="far fa-user"></i> {{ $customer->name }}
                         <div class="float-right">
                             <a href="{{ route('customers.edit', $customer) }}" class="btn btn-warning btn-sm"><i class="far fa-pencil"></i></a>
                             <a href="" class="btn btn-danger btn-sm"><i class="far fa-trash"></i></a>
@@ -17,7 +17,7 @@
                         <ol class="breadcrumb mb-0">
                             <li class="breadcrumb-item"><a href="{{ route('home') }}">Home</a></li>
                             <li class="breadcrumb-item"><a href="{{ route('customers.index') }}">Customers</a></li>
-                            <li class="breadcrumb-item active">{{ $customer->first_name }} {{ $customer->last_name }}</li>
+                            <li class="breadcrumb-item active">{{ $customer->name }}</li>
                         </ol>
                     </nav>
                 </div>
@@ -97,7 +97,7 @@
                         <i class="far fa-folders"></i> Rendered Services
                     </div>
                     <div class="card-body">
-                        @include('rendered-services.partial-index-table', ['renderedServices' => $customer->renderedServices, 'showVehicle' => true])
+                        @include('rendered-services.partial-index-table', ['renderedServices' => $customer->renderedServices, 'showVehicle' => true, 'showExpanded' => true, 'dataTable' => true])
                     </div>
                 </div>
             </div>

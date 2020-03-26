@@ -16,6 +16,15 @@ class Customer extends BaseModel
         'sms_reminders',
     ];
 
+    protected $appends = [
+        'name'
+    ];
+
+    public function getNameAttribute($value)
+    {
+        return $this->first_name . ' ' . $this->last_name;
+    }
+
     public function setHomePhoneAttribute($value)
     {
         $this->attributes['home_phone'] = preg_replace('/[^0-9]/', '', $value);
