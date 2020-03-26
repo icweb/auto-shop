@@ -42,6 +42,7 @@ Route::group(['middleware' => ['firewall.all']], function(){
         Route::post('customers/{customer}/rendered-services', 'RenderedServiceController@store')->name('rendered-services.store');
         Route::get('rendered-services/{rendered_service}', 'RenderedServiceController@show')->name('rendered-services.show');
 
+        Route::get('appointments/feed', 'AppointmentController@feed')->name('appointments.feed');
         Route::resource('appointments', 'AppointmentController');
 
     });

@@ -54,6 +54,7 @@
             cursor: pointer;
         }
     </style>
+    @yield('header')
 </head>
 <body>
     <div id="app">

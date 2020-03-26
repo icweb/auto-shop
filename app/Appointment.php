@@ -20,7 +20,8 @@ class Appointment extends BaseModel
     ];
 
     protected $appends = [
-        'link'
+        'link',
+        'fg_color'
     ];
 
     public $colors = [
@@ -39,6 +40,12 @@ class Appointment extends BaseModel
         '#4E342E',
         '#000000',
     ];
+
+    public function getFgColorAttribute()
+    {
+        if (!$this->color) { return '#FFFFFF'; }
+        return (intval(str_replace('#', '', $this->color), 16) > 0xffffff / 2) ? '#000000' : '#FFFFFF';
+    }
 
     public function getLinkAttribute()
     {

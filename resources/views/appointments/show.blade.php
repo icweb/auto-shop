@@ -1,4 +1,4 @@
-@extends('layouts.popup')
+@extends('layouts.app')
 
 @section('header')
     <style type="text/css">
@@ -11,17 +11,27 @@
 @section('content')
     <div class="container">
         <div class="row justify-content-center">
-            <div class="col-md-12">
-                <div class="card mb-4">
-                    <div class="card-body">
-                        <b>{{ $appointment->starts_at->format('F d, Y') }}</b>
+            <div class="col-12">
+                <div class="jumbotron">
+                    <h3 class="display-4 mb-0" style="font-size:30px !important;">
+                        <i class="far fa-user"></i> {{ $appointment->starts_at->format('F d, Y') }}
                         <div class="float-right">
-                            <a href="#" class="btn btn-warning btn-sm mb-0"><i class="far fa-pencil"></i></a>
-                            <a href="" class="btn btn-danger btn-sm mb-0"><i class="far fa-trash"></i></a>
+                            <a href="" class="btn btn-info btn-sm"><i class="far fa-file-invoice-dollar"></i></a>
+                            <a href="{{ route('appointments.edit', $appointment) }}" class="btn btn-warning btn-sm"><i class="far fa-pencil"></i></a>
+                            <a href="" class="btn btn-danger btn-sm"><i class="far fa-trash"></i></a>
                         </div>
-                    </div>
+                    </h3>
+                    <nav aria-label="breadcrumb">
+                        <ol class="breadcrumb mb-0">
+                            <li class="breadcrumb-item"><a href="{{ route('home') }}">Home</a></li>
+                            <li class="breadcrumb-item"><a href="{{ route('appointments.index') }}">Schedule</a></li>
+                            <li class="breadcrumb-item active">{{ $appointment->starts_at->format('F d, Y') }}</li>
+                        </ol>
+                    </nav>
                 </div>
-                <div class="card mb-4">
+            </div>
+            <div class="col-6">
+                <div class="card mb-4 h-100">
                     <div>
                         <table class="table mb-0">
                             <tbody>
@@ -49,8 +59,9 @@
                         </table>
                     </div>
                 </div>
-
-                <div class="card mb-4">
+            </div>
+            <div class="col-6">
+                <div class="card mb-4 h-100">
                     <div class="card-body">
                         <b>Services</b><br>
                         <table class="table mb-o">

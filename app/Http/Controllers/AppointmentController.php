@@ -23,6 +23,52 @@ class AppointmentController extends Controller
     }
 
     /**
+     * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
+     */
+    public function feed()
+    {
+        $raw_appointments = Appointment::select('*');
+
+        if($_GET['start']) {
+            $raw_appointments = $raw_appointments->where('ends_at', '>', $_GET['start']);
+        }
+        if($_GET['end']) {
+            $raw_appointments = $raw_appointments->where('starts_at', '<', $_GET['end']);
+        }
+
+        $raw_appointments = $raw_appointments->get();
+
+        $appointments = [];
+        foreach($raw_appointments as $appointment) {
+            $appointments[] = [
+                'id' => 'a' . $appointment->id,
+                'title' =>  preg_replace("/[^a-zA-Z]/", "", $appointment->customer->name),
+                'start' => $appointment->starts_at->format('Y-m-d H:i:s'),
+                'end' => $appointment->ends_at->format('Y-m-d H:i:s'),
+                'rendering' => $appointment->link === '#holiday' ? 'background' : '',
+                'backgroundColor' => $appointment->color,
+                'borderColor' => $appointment->color,
+                'textColor' => $appointment->fg_color,
+                'overlap' =>  true,
+                'className' => 'full-cal-event',
+                'editable' => true,
+                'startEditable' => true,
+                'durationEditable' => true,
+                'meta' => (object)[
+                    'id' => $appointment->id,
+                    'href' => $appointment->link,
+                    'customer' => (object)[
+                        'id' => 'c' . $appointment->customer->id,
+                        'name' => preg_replace("/[^a-zA-Z]/", "", $appointment->customer->name)
+                    ]
+                ]
+            ];
+        }
+
+        return response()->json($appointments);
+    }
+
+    /**
      * Show the form for creating a new resource.
      *
      * @return \Illuminate\Http\Response
